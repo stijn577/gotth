@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="./css/output.css" rel="stylesheet" type="text/css" />
+    <script
+      src="https://unpkg.com/htmx.org@1.9.11"
+      integrity="sha384-0gxUXCCR8yv9FM2b+U3FDbsKthCI66oH5IA9fHppQq9DDMHuMauqq1ZHBpJxQ0J0"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://unpkg.com/htmx.org@1.9.11/dist/ext/json-enc.js"></script>
+    <title>GOTTH</title>
+  </head>
+  <body
+    class="mocha bg-base font-custom text-sm scrollbar-thumb-red scrollbar-track-transparent"
+  >
+    <div
+      class="pl-5 pt-2 text-gray-300 selection:bg-yellow selection:text-crust font-medium justify-self-auto caret-yellow"
+    >
+      <h1 class="text-2xl py-2 text-yellow">Gotth stack example project</h1>
+      <div>
+        <script>
+          function getCounterValue() {
+            return Number(document.getElementById("counter").innerHTML);
+          }
+        </script>
+        <div name="counter">
+          <button
+            class="button"
+            id="counter-button"
+            hx-post="/clicked"
+            hx-swap="outerHTML"
+            hx-target="#counter"
+            hx-ext="json-enc"
+            hx-vals="js:{'value': getCounterValue()}"
+          >
+            CLICK ME
+          </button>
+          <button class="button">PRANK</button>
+        </div>
+        <div class="py-2">
+          <var id="counter" class="text-l text-blue">-10</var>
+        </div>
+      </div>
+      <div name="cards">
+        <form id="cardform">
+          <div class="py-1">
+            <p class="font-semibold text-blue">IMAGE PATH:</p>
+            <input
+              name="image_path"
+              class="forminput"
+              type="text"
+              placeholder="Image path"
+            />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">ALT TEXT:</p>
+            <input name="alt" class="forminput" type="text" placeholder="Alt" />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">TITLE:</p>
+            <input
+              name="title"
+              class="forminput"
+              type="text"
+              placeholder="Title"
+            />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">DESCRIPTION:</p>
+            <input
+              name="description"
+              class="forminput"
+              type="text"
+              placeholder="Descrition"
+            />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">HASHTAGS:</p>
+            <input
+              name="hashtags"
+              class="forminput"
+              type="text"
+              placeholder="Hashtags"
+            />
+          </div>
+          <div class="py-1">
+            <script>
+              function getFormInput(form_id, element_name) {
+                const form = document.getElementById(form_id);
+                const value = form.elements[element_name].value;
+
+                return value;
+              }
+            </script>
+            <button
+              class="button"
+              hx-post="/card"
+              hx-swap="outerHTML"
+              hx-target="#card-target"
+              hx-ext="json-enc"
+              hx-vals="js:{
+                    'image_path': getFormInput('cardform', 'image_path'),
+                    'alt': getFormInput('cardform', 'alt'),
+                    'title': getFormInput('cardform', 'title'),
+                    'description': getFormInput('cardform', 'description'),
+                    'hashtags': getFormInput('cardform', 'hashtags'),
+                }"
+            >
+              SUBMIT
+            </button>
+          </div>
+        </form>
+        <div
+          id="card-collection"
+          class="grid tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 grid-flow-row"
+        >
+          <div id="card-target"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

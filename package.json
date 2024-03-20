@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@catppuccin/tailwindcss": "^0.1.6",
+    "tailwind-scrollbar": "^3.1.0"
+  }
+}

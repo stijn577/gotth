@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+  @apply rounded w-24 h-12 px-1 py-1 
+
+    bg-transparent text-red
+    border border-surface1 border-b-4
+
+    hover:rounded
+    hover:bg-red
+    hover:text-crust
+    hover:border-transparent
+    hover:border-b-4;
+
+  transition: all 0.2s ease-in-out;
+}
+
+.hashtag {
+  @apply inline-block bg-blue rounded-full px-2 py-1 text-base text-xs mr-2 mb-2 mt-1;
+}
+
+.forminput {
+  @apply px-1 py-1
+  bg-crust placeholder:text-overlay0 text-subtext0 
+  rounded border-2 border-surface1
+    
+  focus:outline-none
+  focus:border-red;
+}

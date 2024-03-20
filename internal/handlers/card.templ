@@ -1,0 +1,23 @@
+package handlers
+
+import "fmt"
+
+templ Card(image_path string, alt string, title string, description string, hashtags string) {
+	<div class="px-2 py-2 flex flex-col">
+		<div class="w-full bg-surface0 rounded-2xl border border-red border-b-4 flex flex-col hover:bg-surface1" style="transition: all 0.2s ease-in-out;">
+			<div class="w-full h-56 relative">
+				<img
+					class="w-full h-full object-cover rounded-tl-2xl rounded-tr-2xl"
+					src={ fmt.Sprintf(image_path) }
+					alt={ fmt.Sprintf(alt) }
+				/>
+			</div>
+			<div class="px-6 py-2">
+				<div class="font-bold text-xl text-yellow mb-2">{ fmt.Sprintf(title) }</div>
+				<p class="text-subtext0 h-24 overflow-y-auto text-md scrollbar">{ fmt.Sprintf(description) }</p>
+				<button class="hashtag">{ fmt.Sprintf("#%s", hashtags) }</button>
+			</div>
+		</div>
+	</div>
+	<div id="card-target"></div>
+}
