@@ -1,0 +1,7 @@
+package handlers
+
+import "fmt"
+
+templ Clicked(count int) {
+	<var id="counter" class="text-l text-blue">{ fmt.Sprint(count + 1) }</var>
+}
