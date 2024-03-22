@@ -25,7 +25,7 @@ func Card(image_path string, alt string, title string, description string, hasht
 			templ_7745c5c3_Var1 = templ.NopComponent
 		}
 		ctx = templ.ClearChildren(ctx)
-		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"px-2 py-2 flex flex-col\"><div class=\"w-full bg-surface0 rounded-2xl border border-red border-b-4 flex flex-col hover:bg-surface1\" style=\"transition: all 0.2s ease-in-out;\"><div class=\"w-full h-56 relative\"><img class=\"w-full h-full object-cover rounded-tl-2xl rounded-tr-2xl\" src=\"")
+		_, templ_7745c5c3_Err = templ_7745c5c3_Buffer.WriteString("<div class=\"px-2 py-2 flex flex-col\"><div class=\"w-full bg-surface0 rounded-2xl border border-red border-b-4 flex flex-col hover:bg-surface1\" style=\"transition: all 0.2s ease-in-out;\"><div class=\"w-full h-56\"><img class=\"w-full h-full object-cover rounded-tl-2xl rounded-tr-2xl z-0\" src=\"")
 		if templ_7745c5c3_Err != nil {
 			return templ_7745c5c3_Err
 		}
