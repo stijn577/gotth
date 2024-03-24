@@ -13,166 +13,160 @@
     <title>GOTTH</title>
   </head>
   <body
-    class="mocha bg-base h-full font-custom font-medium text-sm text-gray-300 caret-yellow selection:bg-yellow selection:text-crust scrollbar-thumb-red scrollbar-track-transparent scrollbar-thumb-rounded-full"
+    class="mocha bg-base flex h-full font-custom font-medium text-sm text-gray-300 caret-yellow selection:bg-yellow selection:text-crust scrollbar-thumb-red scrollbar-track-transparent scrollbar-thumb-rounded-full"
   >
-    <div class="flex h-full">
-      <!-- sidebar div -->
-      <div class="fixed bg-crust top-0 left-0 h-full flex flex-col flex-grow">
-        <div class="bg-surface0 rounded-b-full self-center p-2">
+    <!-- sidebar div -->
+    <div class="fixed bg-crust top-0 left-0 h-full flex flex-col flex-grow">
+      <div class="bg-surface0 rounded-b-full self-center p-2">
+        <div class="group rounded-full">
+          <button class="sidebar-button bg-red">HOME</button>
+          <span class="sidebar-tooltip group-hover:scale-100"
+            >💡 return to home</span
+          >
+        </div>
+      </div>
+      <div class="h-full flex flex-col justify-start align-center">
+        <div
+          class="justify-center align-center flex flex-col overflow-y-auto scrollbar rounded-full bg-surface0 p-2 m-2"
+        >
           <div class="group rounded-full">
-            <button class="sidebar-button bg-red">HOME</button>
+            <button class="sidebar-button bg-maroon">fire</button>
             <span class="sidebar-tooltip group-hover:scale-100"
-              >💡 return to home</span
+              >💡 button #1: it does blablabla</span
             >
           </div>
-        </div>
-        <div class="h-full flex flex-col justify-start align-center">
-          <div
-            class="justify-center align-center flex flex-col overflow-y-auto scrollbar rounded-full bg-surface0 p-2 m-2"
-          >
-            <div class="group">
-              <button class="sidebar-button bg-maroon">fire</button>
-              <span class="sidebar-tooltip group-hover:scale-100"
-                >💡 button #1: it does blablabla</span
-              >
-            </div>
-            <div class="group">
-              <button class="sidebar-button bg-peach">fire</button>
-              <span class="sidebar-tooltip group-hover:scale-100"
-                >💡 button #2: it does blablabla</span
-              >
-            </div>
-            <div class="group">
-              <button class="sidebar-button bg-yellow">fire</button>
-              <span class="sidebar-tooltip group-hover:scale-100"
-                >💡 button #3: it does blablabla</span
-              >
-            </div>
-            <div class="group">
-              <button class="sidebar-button bg-green">fire</button>
-              <span class="sidebar-tooltip group-hover:scale-100"
-                >💡 button #4: it does blablabla
-              </span>
-            </div>
+          <div class="group rounded-full">
+            <button class="sidebar-button bg-peach">fire</button>
+            <span class="sidebar-tooltip group-hover:scale-100"
+              >💡 button #2: it does blablabla</span
+            >
+          </div>
+          <div class="group rounded-full">
+            <button class="sidebar-button bg-yellow">fire</button>
+            <span class="sidebar-tooltip group-hover:scale-100"
+              >💡 button #3: it does blablabla</span
+            >
+          </div>
+          <div class="group rounded-full">
+            <button class="sidebar-button bg-green">fire</button>
+            <span class="sidebar-tooltip group-hover:scale-100"
+              >💡 button #4: it does blablabla
+            </span>
           </div>
         </div>
       </div>
-      <!-- end sidebar div -->
+    </div>
+    <!-- end sidebar div -->
 
-      <div class="pl-5 pt-2 ml-20 flex flex-col flex-grow">
-        <h1 class="text-2xl py-2 text-yellow">Gotth stack example project</h1>
-        <!-- counter div -->
+    </div>
+    <div class="pl-5 pt-2 ml-24 flex flex-col min-h-screen h-full flex-grow border-mantle border-l-8">
+      <h1 class="text-2xl py-2 text-yellow">Gotth stack example project</h1>
+      <!-- counter div -->
+      <div>
+        <script>
+          function getCounterValue() {
+            return Number(document.getElementById("counter").innerHTML);
+          }
+        </script>
         <div>
-          <script>
-            function getCounterValue() {
-              return Number(document.getElementById("counter").innerHTML);
-            }
-          </script>
-          <div>
+          <button
+            class="button"
+            id="counter-button"
+            hx-post="/clicked"
+            hx-swap="outerHTML"
+            hx-target="#counter"
+            hx-ext="json-enc"
+            hx-vals="js:{'value': getCounterValue()}"
+          >
+            CLICK ME
+          </button>
+          <button class="button">PRANK</button>
+        </div>
+        <div class="py-2">
+          <var id="counter" class="text-l text-blue">-10</var>
+        </div>
+      </div>
+      <!-- end counter div -->
+      <!-- cards div -->
+      <div>
+        <form id="cardform">
+          <div class="py-1">
+            <p class="font-semibold text-blue">IMAGE PATH:</p>
+            <input
+              name="image_path"
+              class="forminput"
+              type="text"
+              placeholder="Image path"
+            />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">ALT TEXT:</p>
+            <input name="alt" class="forminput" type="text" placeholder="Alt" />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">TITLE:</p>
+            <input
+              name="title"
+              class="forminput"
+              type="text"
+              placeholder="Title"
+            />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">DESCRIPTION:</p>
+            <input
+              name="description"
+              class="forminput"
+              type="text"
+              placeholder="Descrition"
+            />
+          </div>
+          <div class="py-1">
+            <p class="font-semibold text-blue">HASHTAGS:</p>
+            <input
+              name="hashtags"
+              class="forminput"
+              type="text"
+              placeholder="Hashtags"
+            />
+          </div>
+          <div class="py-1">
+            <script>
+              function getFormInput(form_id, element_name) {
+                const form = document.getElementById(form_id);
+                const value = form.elements[element_name].value;
+
+                return value;
+              }
+            </script>
             <button
               class="button"
-              id="counter-button"
-              hx-post="/clicked"
+              hx-post="/card"
               hx-swap="outerHTML"
-              hx-target="#counter"
+              hx-target="#card-target"
               hx-ext="json-enc"
-              hx-vals="js:{'value': getCounterValue()}"
-            >
-              CLICK ME
-            </button>
-            <button class="button">PRANK</button>
-          </div>
-          <div class="py-2">
-            <var id="counter" class="text-l text-blue">-10</var>
-          </div>
-        </div>
-        <!-- end counter div -->
-        <!-- cards div -->
-        <div>
-          <form id="cardform">
-            <div class="py-1">
-              <p class="font-semibold text-blue">IMAGE PATH:</p>
-              <input
-                name="image_path"
-                class="forminput"
-                type="text"
-                placeholder="Image path"
-              />
-            </div>
-            <div class="py-1">
-              <p class="font-semibold text-blue">ALT TEXT:</p>
-              <input
-                name="alt"
-                class="forminput"
-                type="text"
-                placeholder="Alt"
-              />
-            </div>
-            <div class="py-1">
-              <p class="font-semibold text-blue">TITLE:</p>
-              <input
-                name="title"
-                class="forminput"
-                type="text"
-                placeholder="Title"
-              />
-            </div>
-            <div class="py-1">
-              <p class="font-semibold text-blue">DESCRIPTION:</p>
-              <input
-                name="description"
-                class="forminput"
-                type="text"
-                placeholder="Descrition"
-              />
-            </div>
-            <div class="py-1">
-              <p class="font-semibold text-blue">HASHTAGS:</p>
-              <input
-                name="hashtags"
-                class="forminput"
-                type="text"
-                placeholder="Hashtags"
-              />
-            </div>
-            <div class="py-1">
-              <script>
-                function getFormInput(form_id, element_name) {
-                  const form = document.getElementById(form_id);
-                  const value = form.elements[element_name].value;
-
-                  return value;
-                }
-              </script>
-              <button
-                class="button"
-                hx-post="/card"
-                hx-swap="outerHTML"
-                hx-target="#card-target"
-                hx-ext="json-enc"
-                hx-vals="js:{
+              hx-vals="js:{
                     'image_path': getFormInput('cardform', 'image_path'),
                     'alt': getFormInput('cardform', 'alt'),
                     'title': getFormInput('cardform', 'title'),
                     'description': getFormInput('cardform', 'description'),
                     'hashtags': getFormInput('cardform', 'hashtags'),
                 }"
-              >
-                SUBMIT
-              </button>
-            </div>
-          </form>
-          <!-- cards grid -->
-          <div
-            id="card-collection"
-            class="grid tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 grid-flow-row"
-          >
-            <div id="card-target"></div>
+            >
+              SUBMIT
+            </button>
           </div>
-          <!-- end cards grid -->
+        </form>
+        <!-- cards grid -->
+        <div
+          id="card-collection"
+          class="grid tablet:grid-cols-2 laptop:grid-cols-3 desktop:grid-cols-4 grid-flow-row"
+        >
+          <div id="card-target"></div>
         </div>
-        <!-- end cards div -->
+        <!-- end cards grid -->
       </div>
+      <!-- end cards div -->
     </div>
   </body>
 </html>

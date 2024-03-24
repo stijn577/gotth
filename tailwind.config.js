@@ -8,6 +8,7 @@ module.exports = {
     "./internal/**/*.js",
     "./internal/**/*.css",
   ],
+  darkMode: false,
   theme: {
     screens: {
       tablet: "620px",
