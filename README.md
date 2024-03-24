@@ -16,14 +16,7 @@ A lightweight interaction library to make requests to the backend and swap out h
 
 ## Images
 
-### On a wide screen, grid = 3 columns
-
 <img src="images/image1.png" alt="drawing" height="200"/>
 
-### On a tighter screen, grid = 2 columns
 
 <img src="images/image2.png" alt="drawing" height="200"/>
-
-### Hover on button with animation
-
-<img src="images/image3.png" alt="drawing" height="100"/>
