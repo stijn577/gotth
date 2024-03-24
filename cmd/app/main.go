@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"path/filepath"
+	"runtime"
 	"strings"
 
 	"github.com/a-h/templ"
@@ -37,7 +38,7 @@ func main() {
 		err := decoder.Decode(&counter)
 
 		if err != nil {
-			fmt.Println(err)
+			logError(err)
 
 			w.WriteHeader(500)
 			return
@@ -49,7 +50,7 @@ func main() {
 		html, err := templ.ToGoHTML(context.Background(), handlers.Clicked(counter.Value))
 
 		if err != nil {
-			fmt.Println(err)
+			logError(err)
 
 			w.WriteHeader(500)
 			return
@@ -67,37 +68,44 @@ func main() {
 		err := r.ParseMultipartForm(2_000_000)
 
 		if err != nil {
+			logError(err)
+
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
 		image, handler, err := r.FormFile("image")
 
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-
-		defer image.Close()
-
-		ext := filepath.Ext(handler.Filename)
-		filename := fmt.Sprintf("%s%s", strings.ReplaceAll(handler.Filename, ext, ""), ext)
-
-		dst, err := os.Create(filepath.Join("internal/static/images", filename))
+		image_path := ""
 
 		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
-		
-		defer dst.Close()
+			logError(err)
+		} else {
 
-		if _, err := io.Copy(dst, image); err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
-			return
-		}
+			defer image.Close()
 
-		image_path := fmt.Sprintf("/images/%s", filename)
+			ext := filepath.Ext(handler.Filename)
+			filename := fmt.Sprintf("%s%s", strings.ReplaceAll(handler.Filename, ext, ""), ext)
+
+			dst, err := os.Create(filepath.Join("internal/static/images", filename))
+
+			if err != nil {
+
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			defer dst.Close()
+
+			if _, err := io.Copy(dst, image); err != nil {
+				logError(err)
+
+				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
+			}
+
+			image_path = fmt.Sprintf("/images/%s", filename)
+		}
 
 		alt := r.FormValue("alt")
 		title := r.FormValue("title")
@@ -110,7 +118,7 @@ func main() {
 		html, err := templ.ToGoHTML(context.Background(), handlers.Card(image_path, alt, title, description, hashtags))
 
 		if err != nil {
-			fmt.Println(err)
+			logError(err)
 
 			w.WriteHeader(500)
 			return
@@ -126,4 +134,9 @@ func main() {
 	fmt.Printf("Listening on http://localhost%s/\n\n", port)
 
 	http.ListenAndServe(port, nil)
+}
+
+func logError(err error) {
+	_, file, line, _ := runtime.Caller(1) // 1 is the caller depth, 0 would be the current function
+	fmt.Printf("Error: %s, %s:%d\n", err, file, line)
 }

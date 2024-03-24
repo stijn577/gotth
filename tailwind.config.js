@@ -8,7 +8,7 @@ module.exports = {
     "./internal/**/*.js",
     "./internal/**/*.css",
   ],
-  darkMode: false,
+//   darkMode: false,
   theme: {
     screens: {
       tablet: "620px",
@@ -16,7 +16,7 @@ module.exports = {
       desktop: "1700px",
     },
     fontFamily: {
-      custom: ["JetBrainsMono Nerd Font"],
+      custom: ["Fira Code"],
       mono: ["FiraCode"],
     },
     extend: {},

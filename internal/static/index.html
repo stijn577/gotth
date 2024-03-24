@@ -13,7 +13,7 @@
     <title>GOTTH</title>
   </head>
   <body
-    class="mocha bg-base flex h-full font-custom font-medium text-sm text-gray-300 caret-yellow selection:bg-yellow selection:text-crust scrollbar-thumb-red scrollbar-track-transparent scrollbar-thumb-rounded-full"
+    class="mocha bg-base flex h-full font-custom font-medium text-sm text-gray-300 caret-yellow selection:bg-yellow selection:text-crust scrollbar-thin scrollbar-thumb-red scrollbar-track-transparent scrollbar-thumb-rounded-full"
   >
     <!-- sidebar div -->
     <div class="fixed bg-crust top-0 left-0 h-full flex flex-col flex-grow">
@@ -98,20 +98,21 @@
           hx-swap="outerHTML"
         >
           <div class="py-1">
-            <p class="font-semibold text-blue">IMAGE:</p>
+            <p class="text-blue">IMAGE:</p>
             <input
               name="image"
-              class="forminput"
+              class="fileinput"
+              aria-describedby="file_input_help"
               type="file"
-              placeholder="Image path"
+              placeholder="Upload image"
             />
           </div>
           <div class="py-1">
-            <p class="font-semibold text-blue">ALT TEXT:</p>
+            <p class="text-blue">ALT TEXT:</p>
             <input name="alt" class="forminput" type="text" placeholder="Alt" />
           </div>
           <div class="py-1">
-            <p class="font-semibold text-blue">TITLE:</p>
+            <p class="text-blue">TITLE:</p>
             <input
               name="title"
               class="forminput"
@@ -120,7 +121,7 @@
             />
           </div>
           <div class="py-1">
-            <p class="font-semibold text-blue">DESCRIPTION:</p>
+            <p class="text-blue">DESCRIPTION:</p>
             <input
               name="description"
               class="forminput"
@@ -129,7 +130,7 @@
             />
           </div>
           <div class="py-1">
-            <p class="font-semibold text-blue">HASHTAGS:</p>
+            <p class="text-blue">HASHTAGS:</p>
             <input
               name="hashtags"
               class="forminput"
