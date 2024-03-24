@@ -16,6 +16,6 @@ A lightweight interaction library to make requests to the backend and swap out h
 
 ## Images
 
-<img src="images/image1.png" alt="drawing" height="200"/>
+<img src="images/image_upload.png" alt="drawing" height="200"/>
 
-<img src="images/image2.png" alt="drawing" height="200"/>
+<img src="images/image_tooltip.png" alt="drawing" height="200"/>
