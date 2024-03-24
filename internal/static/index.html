@@ -58,8 +58,9 @@
     </div>
     <!-- end sidebar div -->
 
-    </div>
-    <div class="pl-5 pt-2 ml-24 flex flex-col min-h-screen h-full flex-grow border-mantle border-l-8">
+    <div
+      class="pl-5 pt-2 ml-24 flex flex-col min-h-screen h-full flex-grow border-mantle border-l-8"
+    >
       <h1 class="text-2xl py-2 text-yellow">Gotth stack example project</h1>
       <!-- counter div -->
       <div>
@@ -89,13 +90,19 @@
       <!-- end counter div -->
       <!-- cards div -->
       <div>
-        <form id="cardform">
+        <form
+          hx-post="/card"
+          id="cardform"
+          enctype="multipart/form-data"
+          hx-target="#card-target"
+          hx-swap="outerHTML"
+        >
           <div class="py-1">
-            <p class="font-semibold text-blue">IMAGE PATH:</p>
+            <p class="font-semibold text-blue">IMAGE:</p>
             <input
-              name="image_path"
+              name="image"
               class="forminput"
-              type="text"
+              type="file"
               placeholder="Image path"
             />
           </div>
@@ -131,30 +138,16 @@
             />
           </div>
           <div class="py-1">
-            <script>
+            <!-- <script>
               function getFormInput(form_id, element_name) {
                 const form = document.getElementById(form_id);
                 const value = form.elements[element_name].value;
 
                 return value;
               }
-            </script>
-            <button
-              class="button"
-              hx-post="/card"
-              hx-swap="outerHTML"
-              hx-target="#card-target"
-              hx-ext="json-enc"
-              hx-vals="js:{
-                    'image_path': getFormInput('cardform', 'image_path'),
-                    'alt': getFormInput('cardform', 'alt'),
-                    'title': getFormInput('cardform', 'title'),
-                    'description': getFormInput('cardform', 'description'),
-                    'hashtags': getFormInput('cardform', 'hashtags'),
-                }"
-            >
-              SUBMIT
-            </button>
+            </script> -->
+            <button type="submit" class="button">SUBMIT</button>
+            <button type="reset" class="button">CLEAR</button>
           </div>
         </form>
         <!-- cards grid -->

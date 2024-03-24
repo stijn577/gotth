@@ -4,7 +4,11 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/a-h/templ"
 
@@ -58,32 +62,52 @@ func main() {
 	}))
 
 	http.Handle("/card", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		type Card struct {
-			Image_path  string `json:"image_path"`
-			Alt         string `json:"alt"`
-			Title       string `json:"title"`
-			Description string `json:"description"`
-			Hashtags    string `json:"hashtags"`
-		}
-
 		defer r.Body.Close()
 
-		decoder := json.NewDecoder(r.Body)
-
-		card := Card{}
-
-		err := decoder.Decode(&card)
-
-		fmt.Printf("INFO: \"/card\" called, title: \"%s\"\n", card.Title)
+		err := r.ParseMultipartForm(2_000_000)
 
 		if err != nil {
-			fmt.Println(err)
-
-			w.WriteHeader(500)
+			http.Error(w, err.Error(), http.StatusInternalServerError)
 			return
 		}
 
-		html, err := templ.ToGoHTML(context.Background(), handlers.Card(card.Image_path, card.Alt, card.Title, card.Description, card.Hashtags))
+		image, handler, err := r.FormFile("image")
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		defer image.Close()
+
+		ext := filepath.Ext(handler.Filename)
+		filename := fmt.Sprintf("%s%s", strings.ReplaceAll(handler.Filename, ext, ""), ext)
+
+		dst, err := os.Create(filepath.Join("internal/static/images", filename))
+
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		
+		defer dst.Close()
+
+		if _, err := io.Copy(dst, image); err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		image_path := fmt.Sprintf("/images/%s", filename)
+
+		alt := r.FormValue("alt")
+		title := r.FormValue("title")
+		description := r.FormValue("description")
+		hashtags := r.FormValue("hashtags")
+
+		fmt.Printf("INFO: \"/card\" called, title: \"%s\"\n", title)
+		fmt.Println(image_path)
+
+		html, err := templ.ToGoHTML(context.Background(), handlers.Card(image_path, alt, title, description, hashtags))
 
 		if err != nil {
 			fmt.Println(err)

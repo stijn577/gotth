@@ -1,5 +1,6 @@
 bin/
 node_modules/
+internal/static/images/
 
 go.sum
 package-lock.json
